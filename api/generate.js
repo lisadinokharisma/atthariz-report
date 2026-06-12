@@ -102,11 +102,14 @@ OUTPUT (raw JSON, tidak ada apapun selain ini):
 
     // Validasi JSON bisa di-parse
     try {
-      JSON.parse(text);
-    } catch (e) {
-      console.error("JSON parse error:", e.message, "| Text:", text.substring(0, 200));
-      return res.status(422).json({ error: "Format response tidak valid. Coba lagi." });
-    }
+  JSON.parse(text);
+} catch (e) {
+  // Kirim raw response ke frontend biar kita bisa lihat
+  return res.status(422).json({ 
+    error: "Format response tidak valid. Coba lagi.",
+    debug: text.substring(0, 500)
+  });
+}
 
     return res.status(200).json({ result: text });
 
