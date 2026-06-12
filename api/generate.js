@@ -105,10 +105,7 @@ OUTPUT (raw JSON, tidak ada apapun selain ini):
   JSON.parse(text);
 } catch (e) {
   // Kirim raw response ke frontend biar kita bisa lihat
-  return res.status(422).json({ 
-    error: "Format response tidak valid. Coba lagi.",
-    debug: text.substring(0, 500)
-  });
+  return res.status(200).json({ result: JSON.stringify({debug: text.substring(0,300)}) });
 }
 
     return res.status(200).json({ result: text });
