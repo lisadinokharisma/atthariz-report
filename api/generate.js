@@ -101,7 +101,7 @@ Balas HANYA JSON berikut (isi setiap field dengan analisis spesifik untuk klien 
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 1200,
+        max_tokens: 2000,
         messages: [{ role: "user", content: prompt }],
       }),
     });
