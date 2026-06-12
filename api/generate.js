@@ -3,7 +3,6 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -14,9 +13,6 @@ export default async function handler(req, res) {
     return res.status(200).json({
       status: "ok",
       hasApiKey: !!process.env.ANTHROPIC_API_KEY,
-      keyPreview: process.env.ANTHROPIC_API_KEY
-        ? process.env.ANTHROPIC_API_KEY.substring(0, 10) + "..."
-        : "MISSING",
     });
   }
 
@@ -26,7 +22,7 @@ export default async function handler(req, res) {
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: "API key tidak ditemukan di environment." });
+    return res.status(500).json({ error: "API key tidak ditemukan." });
   }
 
   let body;
@@ -38,56 +34,57 @@ export default async function handler(req, res) {
 
   const formData = body.formData || body;
   if (!formData || !formData.expertise) {
-    return res.status(400).json({
-      error: "Data form tidak lengkap.",
-      received: JSON.stringify(body).substring(0, 200),
-    });
+    return res.status(400).json({ error: "Data form tidak lengkap." });
   }
 
-  const prompt = `Kamu adalah mesin JSON. Balas HANYA dengan JSON valid, tanpa teks lain.
+  const prompt = `Kamu adalah mesin JSON. ATURAN KETAT:
+1. Balas HANYA JSON valid, tanpa teks lain
+2. Setiap value MAKSIMAL 1-2 kalimat pendek (under 30 kata)
+3. JANGAN gunakan newline/enter di dalam value string
+4. Array isi singkat, tiap item maks 5-8 kata
 
 DATA KLIEN:
 Nama: ${formData.name || "Klien"}
 Keahlian: ${formData.expertise || ""}
-Konten terakhir: ${formData.recentContent || ""}
-Produk/jasa+harga: ${formData.paidOffer || ""}
-Pertanyaan umum: ${formData.commonQuestion || ""}
-Keberatan harga: ${formData.priceAndObjection || ""}
+Konten: ${formData.recentContent || ""}
+Produk: ${formData.paidOffer || ""}
+FAQ: ${formData.commonQuestion || ""}
+Keberatan: ${formData.priceAndObjection || ""}
 Top content: ${formData.topContent || ""}
-Format+frekuensi: ${formData.contentFormat || ""}, ${formData.postFreq || "3"}/minggu
+Format: ${formData.contentFormat || ""}, ${formData.postFreq || "3"}/minggu
 
-Balas HANYA JSON berikut (isi setiap field dengan analisis spesifik untuk klien ini):
+JSON RESPONSE:
 {
   "executiveSummary": {
-    "currentReality": "status brand saat ini",
-    "strategicShift": "pergeseran dari A ke B",
-    "expectedOutcome": "hasil terukur hari ke-90"
+    "currentReality": "1 kalimat status brand",
+    "strategicShift": "dari A ke B",
+    "expectedOutcome": "hasil terukur 90 hari"
   },
   "contentCorner": {
     "oversaturated": "topik jenuh",
     "gap": "celah pasar",
     "uniqueAngle": "sudut unik",
-    "threeContentPillars": ["pilar 1", "pilar 2", "pilar 3"],
-    "whatToCut": "yang harus dihentikan"
+    "threeContentPillars": ["pilar1", "pilar2", "pilar3"],
+    "whatToCut": "yang dihentikan dan alasan"
   },
   "valueEngine": {
-    "valueGap": "value gap",
-    "fiveGiveaways": ["aset 1", "aset 2", "aset 3", "aset 4", "aset 5"],
-    "shareableResource": "resource viral",
-    "thirtyDayCalendar": "kalender 30 hari"
+    "valueGap": "value gap singkat",
+    "fiveGiveaways": ["aset1", "aset2", "aset3", "aset4", "aset5"],
+    "shareableResource": "judul dan format resource viral",
+    "thirtyDayCalendar": "minggu1: X, minggu2: Y, minggu3: Z, minggu4: W"
   },
   "offerReArchitecture": {
-    "buyerFriction": "keraguan pembeli",
-    "reframedOffer": "penawaran baru",
-    "structuralShift": "perubahan struktur",
-    "presentationLanguage": "pitch siap pakai"
+    "buyerFriction": "keraguan utama",
+    "reframedOffer": "positioning baru",
+    "structuralShift": "1 perubahan konkret",
+    "presentationLanguage": "opening dan closing pitch"
   },
   "shareabilityAndCompounding": {
-    "missingTriggers": "pemicu yang hilang",
-    "repurposingChain": "1 konten jadi 5+",
-    "neglectedChannel": "platform diabaikan",
+    "missingTriggers": "3 pemicu yang hilang",
+    "repurposingChain": "1 konten jadi 5 aset",
+    "neglectedChannel": "platform dan alasan",
     "weeklySystem": "sistem mingguan",
-    "ninetyDayMilestone": "milestone 30/60/90"
+    "ninetyDayMilestone": "hari30: X, hari60: Y, hari90: Z"
   }
 }`;
 
@@ -101,22 +98,17 @@ Balas HANYA JSON berikut (isi setiap field dengan analisis spesifik untuk klien 
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 2000,
+        max_tokens: 4096,
         messages: [{ role: "user", content: prompt }],
       }),
     });
 
     const data = await apiResponse.json();
 
-    // Kalau API error, kirim detail lengkap
     if (!apiResponse.ok) {
       return res.status(200).json({
         result: JSON.stringify({
-          executiveSummary: {
-            currentReality: "API ERROR: " + (data.error?.message || JSON.stringify(data)),
-            strategicShift: "Status: " + apiResponse.status,
-            expectedOutcome: "Coba lagi dalam 1 menit"
-          },
+          executiveSummary: { currentReality: "API ERROR: " + (data.error?.message || apiResponse.status), strategicShift: "-", expectedOutcome: "-" },
           contentCorner: { oversaturated: "-", gap: "-", uniqueAngle: "-", threeContentPillars: ["-","-","-"], whatToCut: "-" },
           valueEngine: { valueGap: "-", fiveGiveaways: ["-","-","-","-","-"], shareableResource: "-", thirtyDayCalendar: "-" },
           offerReArchitecture: { buyerFriction: "-", reframedOffer: "-", structuralShift: "-", presentationLanguage: "-" },
@@ -125,27 +117,21 @@ Balas HANYA JSON berikut (isi setiap field dengan analisis spesifik untuk klien 
       });
     }
 
-    // Ambil teks dari response
     let raw = "";
     if (data.content && Array.isArray(data.content)) {
       raw = data.content.map((i) => i.text || "").join("");
     }
     raw = raw.trim();
 
-    // Bersihkan markdown
+    // Bersihkan markdown fences
     raw = raw.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
 
-    // Cari JSON di dalam response
+    // Cari JSON
     const jsonMatch = raw.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      // Tidak ada JSON — tampilkan apa yang Claude keluarkan
       return res.status(200).json({
         result: JSON.stringify({
-          executiveSummary: {
-            currentReality: "DEBUG NO JSON: " + raw.substring(0, 150),
-            strategicShift: "Raw length: " + raw.length,
-            expectedOutcome: "Content blocks: " + (data.content ? data.content.length : 0)
-          },
+          executiveSummary: { currentReality: "NO JSON FOUND. Raw: " + raw.substring(0, 100), strategicShift: "-", expectedOutcome: "-" },
           contentCorner: { oversaturated: "-", gap: "-", uniqueAngle: "-", threeContentPillars: ["-","-","-"], whatToCut: "-" },
           valueEngine: { valueGap: "-", fiveGiveaways: ["-","-","-","-","-"], shareableResource: "-", thirtyDayCalendar: "-" },
           offerReArchitecture: { buyerFriction: "-", reframedOffer: "-", structuralShift: "-", presentationLanguage: "-" },
@@ -154,37 +140,59 @@ Balas HANYA JSON berikut (isi setiap field dengan analisis spesifik untuk klien 
       });
     }
 
-    const jsonText = jsonMatch[0];
+    let jsonText = jsonMatch[0];
 
-    // Coba parse
+    // JSON REPAIR: fix common issues
+    // 1. Ganti newlines di dalam string values
+    jsonText = jsonText.replace(/(?<=: ")([\s\S]*?)(?=")/g, (match) => {
+      return match.replace(/\n/g, " ").replace(/\r/g, "");
+    });
+
+    // 2. Kalau JSON terpotong, coba tutup brackets
     try {
       JSON.parse(jsonText);
       return res.status(200).json({ result: jsonText });
     } catch (e) {
-      // JSON ditemukan tapi tidak valid
-      return res.status(200).json({
-        result: JSON.stringify({
-          executiveSummary: {
-            currentReality: "DEBUG PARSE ERROR: " + e.message,
-            strategicShift: "First 150 chars: " + jsonText.substring(0, 150),
-            expectedOutcome: "Coba lagi"
-          },
-          contentCorner: { oversaturated: "-", gap: "-", uniqueAngle: "-", threeContentPillars: ["-","-","-"], whatToCut: "-" },
-          valueEngine: { valueGap: "-", fiveGiveaways: ["-","-","-","-","-"], shareableResource: "-", thirtyDayCalendar: "-" },
-          offerReArchitecture: { buyerFriction: "-", reframedOffer: "-", structuralShift: "-", presentationLanguage: "-" },
-          shareabilityAndCompounding: { missingTriggers: "-", repurposingChain: "-", neglectedChannel: "-", weeklySystem: "-", ninetyDayMilestone: "-" }
-        }),
-      });
+      // Coba repair: tutup string dan brackets yang belum tertutup
+      let repaired = jsonText;
+
+      // Hitung buka/tutup brackets
+      const openBraces = (repaired.match(/\{/g) || []).length;
+      const closeBraces = (repaired.match(/\}/g) || []).length;
+      const openBrackets = (repaired.match(/\[/g) || []).length;
+      const closeBrackets = (repaired.match(/\]/g) || []).length;
+
+      // Tutup string yang terbuka kalau karakter terakhir bukan " atau } atau ]
+      const lastChar = repaired.trim().slice(-1);
+      if (lastChar !== '"' && lastChar !== '}' && lastChar !== ']') {
+        repaired += '"';
+      }
+
+      // Tutup brackets
+      for (let i = 0; i < openBrackets - closeBrackets; i++) repaired += "]";
+      for (let i = 0; i < openBraces - closeBraces; i++) repaired += "}";
+
+      try {
+        JSON.parse(repaired);
+        return res.status(200).json({ result: repaired });
+      } catch (e2) {
+        // Last resort: tampilkan debug
+        return res.status(200).json({
+          result: JSON.stringify({
+            executiveSummary: { currentReality: "PARSE ERROR: " + e.message, strategicShift: "Last 100 chars: " + jsonText.slice(-100), expectedOutcome: "stop_reason: " + (data.stop_reason || "unknown") },
+            contentCorner: { oversaturated: "-", gap: "-", uniqueAngle: "-", threeContentPillars: ["-","-","-"], whatToCut: "-" },
+            valueEngine: { valueGap: "-", fiveGiveaways: ["-","-","-","-","-"], shareableResource: "-", thirtyDayCalendar: "-" },
+            offerReArchitecture: { buyerFriction: "-", reframedOffer: "-", structuralShift: "-", presentationLanguage: "-" },
+            shareabilityAndCompounding: { missingTriggers: "-", repurposingChain: "-", neglectedChannel: "-", weeklySystem: "-", ninetyDayMilestone: "-" }
+          }),
+        });
+      }
     }
 
   } catch (err) {
     return res.status(200).json({
       result: JSON.stringify({
-        executiveSummary: {
-          currentReality: "SERVER ERROR: " + err.message,
-          strategicShift: err.name || "Unknown",
-          expectedOutcome: "Coba lagi"
-        },
+        executiveSummary: { currentReality: "SERVER ERROR: " + err.message, strategicShift: "-", expectedOutcome: "-" },
         contentCorner: { oversaturated: "-", gap: "-", uniqueAngle: "-", threeContentPillars: ["-","-","-"], whatToCut: "-" },
         valueEngine: { valueGap: "-", fiveGiveaways: ["-","-","-","-","-"], shareableResource: "-", thirtyDayCalendar: "-" },
         offerReArchitecture: { buyerFriction: "-", reframedOffer: "-", structuralShift: "-", presentationLanguage: "-" },
