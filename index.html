@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Brand Strategy Report — ATTHARIZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B3A5C;--navy-dark:#122840;--navy-mid:#1e4268;--gold:#C9A84C;--gold-light:#e0c070;--gold-pale:#f5edcf;--white:#ffffff;--off-white:#F8F6F1;--gray-100:#F2F0EB;--gray-200:#E0DCCE;--gray-400:#A8A299;--gray-600:#6B6560;--gray-800:#2E2B26;--text:#1a1814;--text-muted:#5a5650;--error:#9b2c2c;--error-bg:#fff5f5;--radius:10px;--radius-lg:16px;--shadow-card:0 2px 16px rgba(27,58,92,0.10)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--navy-dark);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+.page-shell{flex:1;display:flex;flex-direction:column;align-items:center;padding:0 1rem 4rem}
+.site-header{width:100%;background:var(--navy);border-bottom:1px solid rgba(201,168,76,0.25);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2.5rem}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-svg{width:44px;height:44px;flex-shrink:0}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gold);letter-spacing:0.18em;line-height:1}
+.logo-tagline{font-size:9.5px;color:rgba(201,168,76,0.65);letter-spacing:0.06em;margin-top:3px;text-transform:uppercase}
+.hero{text-align:center;max-width:600px;margin:0 auto 2.5rem;padding:0 1rem}
+.hero-eyebrow{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:4px 14px;border-radius:20px;margin-bottom:14px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,38px);font-weight:500;color:var(--white);line-height:1.2;margin-bottom:12px}
+.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.65;max-width:460px;margin:0 auto 1.5rem}
+.hero-debug{text-align:center;margin-top:1rem}
+.btn-debug{background:transparent;color:rgba(201,168,76,0.6);border:1px solid rgba(201,168,76,0.3);font-size:11px;padding:6px 14px;border-radius:6px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-debug:hover{color:var(--gold);border-color:var(--gold)}
+.card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);width:100%;max-width:640px;overflow:hidden}
+.progress-rail{background:var(--navy);padding:1.1rem 1.5rem;display:flex;align-items:center}
+.prog-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.prog-item:not(:last-child)::after{content:'';position:absolute;top:13px;left:50%;width:100%;height:1px;background:rgba(255,255,255,0.15)}
+.prog-item.done:not(:last-child)::after{background:rgba(201,168,76,0.5)}
+.prog-dot{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,0.35);position:relative;z-index:1;background:var(--navy)}
+.prog-item.active .prog-dot{border-color:var(--gold);color:var(--gold)}
+.prog-item.done .prog-dot{border-color:var(--gold);background:var(--gold);color:var(--navy-dark);font-weight:700}
+.prog-label{font-size:9px;color:rgba(255,255,255,0.3);margin-top:5px;text-align:center;letter-spacing:0.04em}
+.prog-item.active .prog-label,.prog-item.done .prog-label{color:rgba(201,168,76,0.75)}
+.form-body{padding:1.75rem}
+.step-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,4vw,24px);font-weight:500;color:var(--navy-dark);line-height:1.3;margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:1.5rem}
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:12.5px;font-weight:500;color:var(--gray-800);margin-bottom:4px}
+.field .hint{font-size:11.5px;color:var(--gray-400);line-height:1.5;margin-bottom:6px;font-style:italic}
+textarea,input[type="text"],input[type="email"],input[type="tel"],input[type="password"]{width:100%;padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-size:13.5px;font-family:'Inter',sans-serif;color:var(--text);background:var(--off-white);transition:border-color 0.15s;outline:none}
+textarea:focus,input:focus{border-color:var(--gold);background:var(--white)}
+textarea.error,input.error{border-color:var(--error)}
+textarea{min-height:85px;resize:vertical}
+.field-error{font-size:11px;color:var(--error);margin-top:4px;display:none}
+.field-error.visible{display:block}
+.subscriber-notice{background:linear-gradient(135deg,#f5edcf,#fff9ec);border:1px solid rgba(201,168,76,0.4);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--navy-dark);margin-bottom:1rem;line-height:1.5}
+.subscriber-notice strong{color:var(--gold)}
+.btn-row{display:flex;gap:10px;align-items:center;margin-top:1.5rem}
+.btn-back{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-600);padding:10px 18px;border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.btn-back:hover{border-color:var(--gray-400);color:var(--text)}
+.btn-next{flex:1;background:var(--navy);color:var(--white);border:none;padding:12px 24px;border-radius:var(--radius);font-size:13.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s}
+.btn-next:hover{background:var(--navy-mid)}
+.btn-generate{flex:1;background:var(--gold);color:var(--navy-dark);border:none;padding:12px 26px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.02em;transition:background 0.15s}
+.btn-generate:hover{background:var(--gold-light)}
+.btn-secondary{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-600);padding:10px 22px;border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;width:100%}
+.loading-screen{padding:2.5rem 1.75rem 2rem;text-align:center}
+.spinner-ring{width:52px;height:52px;border:3px solid var(--gray-200);border-top-color:var(--gold);border-radius:50%;animation:spin 0.85s linear infinite;margin:0 auto 1.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--navy-dark);margin-bottom:6px}
+.loading-sub{font-size:12.5px;color:var(--text-muted);margin-bottom:1.5rem}
+.load-list{list-style:none;text-align:left;max-width:300px;margin:0 auto}
+.load-list li{font-size:12px;color:var(--gray-400);padding:5px 0;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--gray-100)}
+.load-list li:last-child{border:none}
+.load-list li.active{color:var(--navy)}
+.load-list li.done{color:var(--gold)}
+.load-icon{width:16px;font-size:11px;text-align:center;flex-shrink:0}
+.error-banner{background:var(--error-bg);border-left:3px solid var(--error);padding:12px 16px;font-size:13px;color:var(--error)}
+/* PRO BADGE */
+.pro-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy-dark);font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase}
+/* REPORT */
+.report-shell{width:100%;max-width:860px}
+.report-card{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden;margin-bottom:1.5rem}
+.report-header{background:var(--navy);padding:1.75rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.report-header-left{display:flex;align-items:flex-start;gap:1.1rem}
+.report-header-logo{width:46px;height:46px;flex-shrink:0;margin-top:2px}
+.report-doc-label{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.6)}
+.report-doc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,3vw,22px);font-weight:500;color:var(--white);line-height:1.2}
+.report-meta{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.btn-print{background:transparent;border:1px solid rgba(201,168,76,0.4);color:rgba(201,168,76,0.75);font-size:11px;padding:7px 14px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:all 0.15s;flex-shrink:0}
+.btn-print:hover{border-color:var(--gold);color:var(--gold)}
+.gold-rule{height:2px;background:linear-gradient(90deg,var(--gold) 0%,rgba(201,168,76,0.2) 100%)}
+.report-body{padding:1.75rem 2rem}
+.report-section{margin-bottom:2rem}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:1.1rem;padding-bottom:10px;border-bottom:1px solid var(--gray-200)}
+.section-badge{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:var(--navy);color:var(--gold);padding:4px 10px;border-radius:4px;white-space:nowrap}
+.section-title-text{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2.5vw,19px);font-weight:500;color:var(--navy-dark)}
+.report-block{margin-bottom:1rem}
+.report-block-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.report-block-content{font-size:13.5px;color:var(--text);line-height:1.7;background:var(--off-white);padding:10px 14px;border-radius:8px;border-left:2px solid var(--gold-pale)}
+.report-block-content.pain{border-left-color:#c53030;background:#fff5f5;color:#742a2a}
+.report-block-content.highlight{border-left-color:var(--gold);background:var(--gold-pale)}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
+.pillar-card{background:var(--navy);color:var(--white);padding:12px;border-radius:8px;font-size:12.5px;line-height:1.5}
+.pillar-num{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.giveaways-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.giveaways-list li{font-size:13px;color:var(--text);background:var(--off-white);padding:8px 12px;border-radius:6px;border-left:2px solid var(--gold);line-height:1.5}
+.hooks-grid{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.hook-card{background:var(--navy-dark);color:var(--white);padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;border-left:3px solid var(--gold)}
+.hook-number{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.calendar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:4px}
+.week-card{background:var(--off-white);border-radius:10px;overflow:hidden}
+.week-header{background:var(--navy);padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.week-theme{font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;padding:4px 12px 6px;background:var(--navy)}
+.week-posts{padding:8px 12px}
+.post-item{padding:6px 0;border-bottom:1px solid var(--gray-200);font-size:12px}
+.post-item:last-child{border:none}
+.post-day{font-weight:600;color:var(--navy);font-size:11px;margin-bottom:2px}
+.post-type{color:var(--gold);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em}
+.post-hook{color:var(--text-muted);font-size:11.5px;line-height:1.4;margin-top:2px}
+.post-platform{display:inline-block;background:var(--navy);color:var(--gold);font-size:9px;padding:2px 6px;border-radius:4px;margin-top:3px}
+.kpi-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.kpi-tag{background:var(--gold-pale);color:var(--navy-dark);font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px}
+.checkpoint-block{background:var(--navy);color:var(--white);padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;margin-top:8px}
+/* LOCKED SECTION */
+.locked-section{background:linear-gradient(135deg,#0d1f33,var(--navy-dark));border-radius:var(--radius-lg);padding:2rem;margin-bottom:1rem;border:1px solid rgba(201,168,76,0.25);text-align:center;position:relative;overflow:hidden}
+.locked-section::before{content:'🔒';font-size:32px;display:block;margin-bottom:10px}
+.locked-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:6px}
+.locked-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;line-height:1.6}
+.btn-unlock{background:var(--gold);color:var(--navy-dark);border:none;padding:10px 24px;border-radius:var(--radius);font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-block}
+/* CLIFFHANGER */
+.cliffhanger-section{background:linear-gradient(135deg,var(--navy-dark) 0%,#0d1f33 100%);border-radius:var(--radius-lg);padding:2.5rem 2rem;margin-bottom:1.5rem;text-align:center;border:1px solid rgba(201,168,76,0.3);position:relative;overflow:hidden}
+.cliffhanger-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.cliffhanger-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4vw,32px);font-weight:500;color:var(--white);line-height:1.3;margin-bottom:12px}
+.cliffhanger-title em{color:var(--gold-light);font-style:italic}
+.cliffhanger-teaser{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:520px;margin:0 auto 8px}
+.cliffhanger-urgency{font-size:12.5px;color:rgba(201,168,76,0.7);font-style:italic;margin-bottom:24px}
+.cta-buttons{display:flex;flex-direction:column;gap:10px;align-items:center;max-width:380px;margin:0 auto}
+.btn-cta-primary{width:100%;background:var(--gold);color:var(--navy-dark);border:none;padding:14px 28px;border-radius:var(--radius);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;text-decoration:none;display:block;text-align:center}
+.btn-cta-primary:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 20px rgba(201,168,76,0.3)}
+.btn-cta-secondary{width:100%;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);padding:11px 28px;border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;text-decoration:none;display:block;text-align:center}
+.btn-cta-secondary:hover{border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.8)}
+.ig-follow{margin-top:16px;font-size:12px;color:rgba(255,255,255,0.35)}
+.ig-follow a{color:var(--gold);text-decoration:none;font-weight:600}
+.restart-row{width:100%;max-width:860px;display:flex;justify-content:center;margin-top:0.5rem;margin-bottom:2rem}
+.btn-restart{background:transparent;border:1px solid rgba(201,168,76,0.35);color:rgba(201,168,76,0.65);font-size:12px;padding:8px 20px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.btn-restart:hover{border-color:var(--gold);color:var(--gold)}
+.site-footer{background:var(--navy-dark);border-top:1px solid rgba(201,168,76,0.12);padding:1.25rem 2rem;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.04em}
+
+@media(max-width:600px){.calendar-grid{grid-template-columns:1fr}.pillars-grid{grid-template-columns:1fr}}
+
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:white!important;-webkit-print-color-adjust:exact}
+  .site-header,.hero,.hero-debug,.restart-row,.btn-print,.cliffhanger-section,.locked-section{display:none!important}
+  .report-shell{max-width:100%}
+  .report-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .report-section{break-inside:avoid}
+  .report-header{background:#1B3A5C!important;-webkit-print-color-adjust:exact}
+  .pillar-card{background:#1B3A5C!important;color:white!important}
+  .hook-card{background:#122840!important;color:white!important}
+  .week-header{background:#1B3A5C!important;-webkit-print-color-adjust:exact}
+  .week-theme{background:#1B3A5C!important}
+  h1,h2,h3,.cliffhanger-title,.report-doc-title,.section-title-text,.step-title{word-break:break-word;overflow-wrap:break-word}
+  .report-block-content{word-break:break-word;overflow-wrap:break-word;white-space:normal}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="logo-wrap">
+    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,4 90,27 90,73 50,96 10,73 10,27" stroke="#C9A84C" stroke-width="2.5" fill="none"/>
+      <line x1="50" y1="16" x2="50" y2="84" stroke="#C9A84C" stroke-width="2"/>
+      <line x1="50" y1="16" x2="28" y2="56" stroke="#C9A84C" stroke-width="2"/>
+      <line x1="50" y1="16" x2="72" y2="56" stroke="#C9A84C" stroke-width="2"/>
+      <line x1="33" y1="48" x2="67" y2="48" stroke="#C9A84C" stroke-width="2"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-name">ATTHARIZ</div>
+      <div class="logo-tagline">Financial Integrity · Operational Clarity · Strategic Growth</div>
+    </div>
+  </div>
+</header>
+
+<div class="page-shell">
+  <div class="hero" id="heroSection">
+    <div class="hero-eyebrow">Personal Brand Strategy Tool</div>
+    <h1 class="hero-title">Berapa Banyak Uang yang Hilang<br>karena Brand-mu Belum <em>Positioning?</em></h1>
+    <p class="hero-sub">Jawab 8 pertanyaan singkat. AI kami analisis posisi brand-mu dan beri roadmap konkret 90 hari — gratis, dalam 60 detik.</p>
+    <div class="hero-debug">
+      <button class="btn-debug" onclick="testApiConnection(this)">⟳ Test API Connection</button>
+    </div>
+  </div>
+
+  <div class="card" id="wizardCard">
+    <div class="progress-rail" id="progressRail"></div>
+    <div id="wizardContent"></div>
+  </div>
+
+  <div class="report-shell" id="reportShell" style="display:none;"></div>
+  <div class="restart-row" id="restartRow" style="display:none;">
+    <button class="btn-restart" onclick="restartAll()">↺ Buat Laporan Baru</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2025 ATTHARIZ · Accounting Information System · Strategic Tax · Business Structure · Fraud Risk Management
+</footer>
+
+<script>
+const STEPS=[
+  {id:"identity",eyebrow:"Langkah 1 dari 5",title:"Siapa kamu & apa senjata utamamu?",desc:"Makin spesifik makin tajam analisisnya.",
+   fields:[
+    {id:"name",label:"Nama lengkapmu",hint:"",type:"text",required:true},
+    {id:"whatsapp",label:"Nomor WhatsApp aktif",hint:"Contoh: 08123456789",type:"tel",required:true},
+    {id:"email",label:"Email aktif (opsional)",hint:"",type:"email",required:false},
+    {id:"subscriberToken",label:"Kode Subscriber (opsional)",hint:"Punya kode akses? Isi di sini untuk laporan versi lengkap",type:"password",required:false},
+    {id:"expertise",label:"Keahlian utama & siapa audiens yang ingin kamu sasar",hint:"Contoh: Konsultan pajak UMKM, sasar pemilik usaha omzet 500jt–5M yang belum paham CoreTax",type:"textarea",required:true},
+    {id:"recentContent",label:"3 konten terakhir yang baru kamu publish",hint:"Paste link atau ceritakan singkat isi + platform-nya (IG, TikTok, LinkedIn, dll)",type:"textarea",required:true}
+  ]},
+  {id:"value",eyebrow:"Langkah 2 dari 5",title:"Apa yang bisa kamu beri gratis?",desc:"Konten gratismu seharusnya bikin audiens merasa 'ini worth bayar lebih'.",
+   fields:[
+    {id:"paidOffer",label:"Produk atau jasa berbayarmu saat ini",hint:"Contoh: Paket konsultasi pajak 3 bulan, Rp 3.5jt. Atau kelas online AIS, Rp 750rb.",type:"textarea",required:true},
+    {id:"commonQuestion",label:"Pertanyaan paling sering dari calon klien sebelum beli",hint:"Tulis 2–3 pertanyaan yang paling sering muncul di DM atau chat-mu",type:"textarea",required:true}
+  ]},
+  {id:"offer",eyebrow:"Langkah 3 dari 5",title:"Bikin mereka susah nolak",desc:"Konversi rendah bukan selalu soal harga — sering soal rasa takut yang belum diselesaikan.",
+   fields:[
+    {id:"priceAndObjection",label:"Harga jasamu & alasan paling umum orang batal beli",hint:"Contoh: Harga Rp 2jt/bulan. Orang sering bilang mahal, atau takut laporan keuangannya kacau kelihatan",type:"textarea",required:true}
+  ]},
+  {id:"shareability",eyebrow:"Langkah 4 dari 5",title:"Audit virality kontenmu",desc:"Kita cari pola apa yang bikin kontenmu ramai vs yang mati tanpa suara.",
+   fields:[
+    {id:"topContent",label:"Konten dengan engagement tertinggi milikmu",hint:"Ceritakan isi kontennya dan kenapa menurutmu itu bisa ramai — likes, shares, komentar",type:"textarea",required:true}
+  ]},
+  {id:"system",eyebrow:"Langkah 5 dari 5",title:"Lipatgandakan hasilmu",desc:"Kita rancang sistem agar 1 konten jadi 5–10 aset tanpa menambah jam kerjamu.",
+   fields:[
+    {id:"contentFormat",label:"Format konten utama yang paling sering kamu pakai",hint:"Contoh: Video pendek TikTok/Reels, Carousel Instagram, Artikel LinkedIn",type:"textarea",required:true},
+    {id:"postFreq",label:"Berapa kali posting per minggu saat ini?",hint:"Contoh: 3x seminggu, atau 1x sehari",type:"text",required:true}
+  ]}
+];
+
+let currentStep=0, formData={};
+
+const LOAD_ITEMS=["Menganalisis positioning brand...","Memetakan celah kompetitor di niche-mu...","Menyusun kalender konten 30 hari...","Membangun compounding system...","Memfinalisasi laporan strategis..."];
+
+async function testApiConnection(btn){
+  btn.disabled=true;btn.textContent="Testing...";
+  try{const r=await fetch("/api/generate");const d=await r.json();alert("Status: "+d.status+"\nAPI Key: "+(d.hasApiKey?"✅ OK":"❌ MISSING"));}
+  catch(e){alert("Error: "+e.message);}
+  finally{btn.disabled=false;btn.textContent="⟳ Test API Connection";}
+}
+
+function renderProgress(){
+  const rail=document.getElementById("progressRail");
+  const labels=["Identitas","Value","Penawaran","Virality","Sistem"];
+  rail.innerHTML=STEPS.map((s,i)=>`<div class="prog-item ${i<currentStep?"done":i===currentStep?"active":""}"><div class="prog-dot">${i<currentStep?"✓":i+1}</div><div class="prog-label">${labels[i]}</div></div>`).join("");
+}
+
+function renderStep(){
+  const s=STEPS[currentStep];
+  const isLast=currentStep===STEPS.length-1;
+  const hasSub=formData.subscriberToken&&formData.subscriberToken.length>0;
+  const subNotice=currentStep===0?"":``;
+  const fieldsHtml=s.fields.map(f=>{
+    const val=(formData[f.id]||"").replace(/"/g,"&quot;");
+    const inp=f.type==="textarea"
+      ?`<textarea id="${f.id}" rows="3">${formData[f.id]||""}</textarea>`
+      :`<input type="${f.type}" id="${f.id}" value="${val}" autocomplete="off">`;
+    return`<div class="field"><label for="${f.id}">${f.label}${f.required?` <span style="color:var(--gold)">*</span>`:""}</label>${f.hint?`<div class="hint">${f.hint}</div>`:""}${inp}<div class="field-error" id="err_${f.id}">Tolong isi bagian ini dulu ya.</div></div>`;
+  }).join("");
+  const backBtn=currentStep>0?`<button class="btn-back" onclick="goBack()">← Kembali</button>`:"<div></div>";
+  const nextBtn=isLast?`<button class="btn-generate" onclick="startGenerate()" id="genBtn">Generate Report ✦</button>`:`<button class="btn-next" onclick="goNext()">Lanjut →</button>`;
+  document.getElementById("wizardContent").innerHTML=`<div class="form-body">${subNotice}<div class="step-eyebrow">${s.eyebrow}</div><div class="step-title">${s.title}</div><div class="step-desc">${s.desc}</div>${fieldsHtml}<div class="btn-row">${backBtn}${nextBtn}</div></div>`;
+}
+
+function collectStep(){STEPS[currentStep].fields.forEach(f=>{const el=document.getElementById(f.id);if(el)formData[f.id]=el.value.trim();});}
+function validateStep(){
+  let ok=true;
+  STEPS[currentStep].fields.forEach(f=>{
+    if(!f.required)return;
+    const el=document.getElementById(f.id);const err=document.getElementById("err_"+f.id);
+    if(!el||!el.value.trim()){if(el)el.classList.add("error");if(err)err.classList.add("visible");ok=false;}
+    else{if(el)el.classList.remove("error");if(err)err.classList.remove("visible");}
+  });
+  return ok;
+}
+function goNext(){collectStep();if(!validateStep())return;currentStep++;renderProgress();renderStep();}
+function goBack(){collectStep();currentStep--;renderProgress();renderStep();}
+
+function showLoadingState(){
+  let active=0;
+  document.getElementById("wizardContent").innerHTML=`<div class="loading-screen"><div class="spinner-ring"></div><div class="loading-title">Menyusun Laporan Strategimu…</div><div class="loading-sub">Biasanya selesai dalam 20–40 detik</div><ul class="load-list">${LOAD_ITEMS.map((t,i)=>`<li id="li${i}"><span class="load-icon">${i===0?"→":"·"}</span>${t}</li>`).join("")}</ul></div>`;
+  document.getElementById("li0").className="active";
+  let idx=0;
+  window.loadInterval=setInterval(()=>{
+    const prev=document.getElementById("li"+idx);
+    if(prev){prev.className="done";prev.querySelector(".load-icon").textContent="✓";}
+    idx++;
+    if(idx<LOAD_ITEMS.length){const next=document.getElementById("li"+idx);if(next){next.className="active";next.querySelector(".load-icon").textContent="→";}}
+    else{clearInterval(window.loadInterval);}
+  },7000);
+}
+
+async function startGenerate(){
+  collectStep();if(!validateStep())return;
+  showLoadingState();
+  try{
+    const res=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({formData})});
+    clearInterval(window.loadInterval);
+    const json=await res.json();
+    if(!res.ok||json.error){showError(json.error||"Server error. Silakan coba lagi.");return;}
+    let text=json.result.replace(/```json|```/g,"").trim();
+    const parsed=JSON.parse(text);
+    renderReport(parsed,json.isPro||false);
+  }catch(err){clearInterval(window.loadInterval);showError("Error: "+err.message);}
+}
+
+function showError(msg){
+  document.getElementById("wizardCard").innerHTML=`<div class="error-banner">⚠ ${msg}</div><div style="padding:1.5rem 1.75rem"><p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1.25rem;border-left:2px solid var(--gold);padding-left:12px"><strong>Kenapa bisa error?</strong><br>• API sedang sibuk (tunggu 1–2 menit)<br>• Koneksi internet lambat<br>• Field terlalu singkat</p><div style="display:flex;gap:10px;flex-direction:column"><button class="btn-next" onclick="goBack()" style="width:100%">← Kembali ke Form</button><button class="btn-secondary" onclick="restartAll()">↻ Mulai Ulang</button></div></div>`;
+  document.getElementById("heroSection").style.display="";
+}
+
+function esc(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function block(label,content,cls=""){return content?`<div class="report-block"><div class="report-block-label">${label}</div><div class="report-block-content ${cls}">${esc(content)}</div></div>`:""}
+function section(badge,title,inner){return`<div class="report-section"><div class="section-header"><span class="section-badge">${badge}</span><span class="section-title-text">${title}</span></div>${inner}</div>`;}
+
+function hooksBlock(label,arr){
+  if(!arr||!arr.length)return"";
+  return`<div class="report-block"><div class="report-block-label">${label}</div><div class="hooks-grid">${arr.map((h,i)=>`<div class="hook-card"><div class="hook-number">Contoh ${i+1}</div>${esc(h)}</div>`).join("")}</div></div>`;
+}
+
+function renderWeek(w,label){
+  if(!w)return"";
+  const posts=Array.isArray(w.posts)?w.posts:[];
+  return`<div class="week-card"><div class="week-header">${label}</div><div class="week-theme">${esc(w.theme||"")}</div><div class="week-posts">${posts.map(p=>`<div class="post-item"><div class="post-day">${esc(p.day||"")}</div><div class="post-type">${esc(p.type||"")}</div><div class="post-hook">${esc(p.hook||"")}</div><span class="post-platform">${esc(p.platform||"")}</span></div>`).join("")}</div></div>`;
+}
+
+function renderReport(d, isPro){
+  const name=formData.name||"Klien";
+  const waNum=(formData.whatsapp||"").replace(/^0/,"").replace(/^\+62/,"");
+  const today=new Date().toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+  const logoSvg=`<svg class="report-header-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 90,27 90,73 50,96 10,73 10,27" stroke="#C9A84C" stroke-width="2.5" fill="none"/><line x1="50" y1="16" x2="50" y2="84" stroke="#C9A84C" stroke-width="2"/><line x1="50" y1="16" x2="28" y2="56" stroke="#C9A84C" stroke-width="2"/><line x1="50" y1="16" x2="72" y2="56" stroke="#C9A84C" stroke-width="2"/><line x1="33" y1="48" x2="67" y2="48" stroke="#C9A84C" stroke-width="2"/></svg>`;
+
+  const es=d.executiveSummary||{};
+  const cc=d.contentCorner||{};
+  const ve=d.valueEngine||{};
+  const oa=d.offerReArchitecture||{};
+  const cs=d.compoundingSystem||{};
+  const gc=d.growthCalendar||{};
+  const ch=d.cliffhanger||{};
+
+  const pillars=Array.isArray(cc.threeContentPillars)?cc.threeContentPillars:[];
+  const giveaways=Array.isArray(ve.fiveGiveaways)?ve.fiveGiveaways:[];
+  const kpis=Array.isArray(gc.kpiToTrack)?gc.kpiToTrack:[];
+
+  const proBadge=isPro?`<span class="pro-badge">⭐ Subscriber Report</span> `:"";
+  const proLabel=isPro?"Laporan Lengkap · Subscriber Access":"Laporan Dasar · Free Tier";
+
+  const calendarSection = isPro
+    ? section("Growth Calendar","Kalender Pertumbuhan 30 Hari",
+        `<div class="calendar-grid">${renderWeek(gc.week1,"Minggu 1")}${renderWeek(gc.week2,"Minggu 2")}${renderWeek(gc.week3,"Minggu 3")}${renderWeek(gc.week4,"Minggu 4")}</div>`+
+        (gc.day30Checkpoint?`<div class="report-block" style="margin-top:12px"><div class="report-block-label">🏁 Checkpoint Hari ke-30</div><div class="checkpoint-block">${esc(gc.day30Checkpoint)}</div></div>`:"")+
+        (kpis.length?`<div class="report-block"><div class="report-block-label">KPI yang Harus Dipantau</div><div class="kpi-list">${kpis.map(k=>`<span class="kpi-tag">${esc(k)}</span>`).join("")}</div></div>`:"")
+      )
+    : `<div class="locked-section"><div class="locked-title">Kalender Konten 30 Hari — Breakdown Per Hari</div><div class="locked-sub">Hook siap pakai, format, platform, dan timing optimal untuk setiap post.<br>Hanya tersedia untuk Subscriber.</div><a href="https://wa.me/62${waNum}?text=Halo%20Atthariz%2C%20saya%20ingin%20subscribe%20untuk%20akses%20laporan%20lengkap" target="_blank" class="btn-unlock">Dapatkan Akses via WhatsApp →</a></div>`;
+
+  const compoundingSection = isPro
+    ? section("Compounding System","Sistem Pertumbuhan 90 Hari",
+        hooksBlock("Hook Kontroversial — Stop Scroll Triggers",cs.hookExamples)+
+        hooksBlock("Pattern Interrupt — Buka dengan Kejutan",cs.patternInterruptExamples)+
+        hooksBlock("Curiosity Loop — Bikin Mereka Lanjut Baca",cs.curiosityLoopExamples)+
+        block("Rantai Repurposing 1 → Banyak",cs.repurposingChain)+
+        block("Saluran Distribusi yang Diabaikan",cs.neglectedChannel)+
+        block("Sistem Eksekusi Mingguan",cs.weeklySystem)
+      )
+    : `<div class="locked-section"><div class="locked-title">Hook Library + Compounding System</div><div class="locked-sub">9 contoh hook siap pakai (kontroversial, pattern interrupt, curiosity loop) + sistem repurposing mingguan.<br>Hanya tersedia untuk Subscriber.</div><a href="https://wa.me/62${waNum}?text=Halo%20Atthariz%2C%20saya%20ingin%20subscribe%20untuk%20akses%20laporan%20lengkap" target="_blank" class="btn-unlock">Dapatkan Akses via WhatsApp →</a></div>`;
+
+  const html=`
+    <div class="report-card">
+      <div class="report-header">
+        <div class="report-header-left">
+          ${logoSvg}
+          <div class="report-title-block">
+            <div class="report-doc-label">${proBadge}Confidential · Personal Brand Intelligence Report</div>
+            <div class="report-doc-title">Personal Branding & Content Strategy Architecture</div>
+            <div class="report-meta">Prepared for: <strong style="color:rgba(255,255,255,0.75)">${esc(name)}</strong> · ${today} · ATTHARIZ Consulting · ${proLabel}</div>
+          </div>
+        </div>
+        <button class="btn-print" onclick="window.print()">⎙ Cetak / Simpan PDF</button>
+      </div>
+      <div class="gold-rule"></div>
+      <div class="report-body">
+
+        ${section("Executive Summary","Gambaran Strategis Utama",
+          block("⚠ Kondisi Brand Saat Ini",es.currentReality,"pain")+
+          block("So What — Implikasi Bisnis Jika Tidak Berubah",es.soWhat,"pain")+
+          block("Pergeseran Strategis yang Diperlukan",es.strategicShift)+
+          block("Target Terukur 90 Hari",es.expectedOutcome,"highlight")+
+          block("⚡ Kenapa Harus Bergerak Sekarang",es.urgencyFrame)
+        )}
+
+        ${section("Content Corner","Peta Posisi Konten di Pasar",
+          block("Area yang Sudah Jenuh",cc.oversaturated)+
+          block("Celah Pasar yang Bisa Dikuasai",cc.gap)+
+          block("Positioning Unik yang Tak Bisa Di-copy",cc.uniqueAngle)+
+          block("Blind Spot Kompetitor di Niche-mu",cc.competitorBlindspot)+
+          (pillars.length?`<div class="report-block"><div class="report-block-label">3 Pilar Konten Mingguan</div><div class="pillars-grid">${pillars.map((p,i)=>`<div class="pillar-card"><div class="pillar-num">Pilar ${i+1}</div>${esc(p)}</div>`).join("")}</div></div>`:"")+
+          block("Yang Harus Dihentikan Minggu Ini",cc.whatToCut,"pain")
+        )}
+
+        ${section("Value Engine","Mesin Pemberi Nilai Gratis",
+          block("Kesenjangan Nilai Saat Ini",ve.valueGap)+
+          (giveaways.length?`<div class="report-block"><div class="report-block-label">5 Aset Gratis yang Bisa Diberikan</div><ul class="giveaways-list">${giveaways.map(g=>`<li>${esc(g)}</li>`).join("")}</ul></div>`:"")+
+          block("Sumber Daya yang Bisa Viral",ve.shareableResource)+
+          block("🎯 Grand Slam Offer (Hormozi Framework)",ve.grandSlamOffer,"highlight")
+        )}
+
+        ${section("Offer Architecture","Rekonstruksi Penawaran",
+          block("Peta Gesekan & Keraguan Pembeli",oa.buyerFriction)+
+          block("Penawaran yang Direkonstruksi",oa.reframedOffer)+
+          block("Perubahan Struktural Kunci",oa.structuralShift)+
+          block("Opening Pitch — Bikin Orang Stop Scroll",oa.presentationLanguage)+
+          block("🎯 Closing Trigger — Loss Aversion",oa.closingTrigger,"highlight")
+        )}
+
+        ${compoundingSection}
+        ${calendarSection}
+
+      </div>
+    </div>
+
+    <div class="cliffhanger-section">
+      <span class="cliffhanger-eyebrow">⚡ Laporan ini baru 40% dari yang seharusnya kamu tahu</span>
+      <h2 class="cliffhanger-title">${esc(ch.whatYouAreMissing||"Strategi Bulan Ke-2 & Ke-3 Jauh Lebih Krusial")}</h2>
+      <p class="cliffhanger-teaser">${esc(ch.teaser||"Kalender pertumbuhan bulan pertama ini hanyalah fondasi.")}</p>
+      <p class="cliffhanger-urgency">${esc(ch.urgency||"Subscribe sekarang dan dapatkan insight lanjutan sebelum kompetitormu melakukannya.")}</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/628${waNum.replace(/^8/,"")}?text=Halo%20Atthariz%2C%20saya%20${encodeURIComponent(name)}%20ingin%20subscribe%20laporan%20bulan%202%20%26%203" target="_blank" class="btn-cta-primary">
+          📲 Subscribe — Dapatkan Insight Bulan 2 & 3
+        </a>
+        <a href="https://www.instagram.com/bapak2berdampak" target="_blank" class="btn-cta-secondary">
+          Follow @bapak2berdampak di Instagram
+        </a>
+      </div>
+      <div class="ig-follow">Bergabung dengan kreator yang sudah berkembang bersama kami · <a href="https://www.instagram.com/bapak2berdampak" target="_blank">@bapak2berdampak</a></div>
+    </div>`;
+
+  document.getElementById("wizardCard").style.display="none";
+  document.getElementById("heroSection").style.display="none";
+  const shell=document.getElementById("reportShell");
+  shell.innerHTML=html;shell.style.display="block";
+  document.getElementById("restartRow").style.display="block";
+  shell.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function restartAll(){
+  currentStep=0;formData={};
+  document.getElementById("reportShell").style.display="none";
+  document.getElementById("restartRow").style.display="none";
+  document.getElementById("heroSection").style.display="";
+  const wc=document.getElementById("wizardCard");
+  wc.style.display="";
+  wc.innerHTML=`<div class="progress-rail" id="progressRail"></div><div id="wizardContent"></div>`;
+  renderProgress();renderStep();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+renderProgress();
+renderStep();
+</script>
+</body>
+</html>
